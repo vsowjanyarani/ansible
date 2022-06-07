@@ -1,0 +1,12 @@
+---
+- name: creating file
+  hosts: all
+  become: yes
+  tasks:
+   - name: file creating
+     file: 
+      name: aatmani1.txt
+      state: touch
+      owner: root
+      group: root 
+      mode: 755

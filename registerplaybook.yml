@@ -1,0 +1,17 @@
+---
+- name: check dir is there or not and storing that info to variable a using register module and display var a using debug module..
+  hosts: webserver
+  tasks:
+   - name: dir is present or not
+     stat:
+      path: /home/ubuntu/d1
+      # path: /home/ubuntu       
+     register: a
+   - name: Display output of the above module(stat)stored in variable a 
+     debug:
+      var: a
+   - name: creating file "d1" if dir "d1" is not present
+     file:
+      name: /home/ubuntu/d1
+      state: touch
+     when: a.stat.exists == false 

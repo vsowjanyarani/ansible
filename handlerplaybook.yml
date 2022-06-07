@@ -1,0 +1,18 @@
+---
+- name: implementing handlers
+  hosts: webserver
+  tasks:
+   - name: install apache
+     apt: 
+      name: apache2
+      state: present
+   - name: edit the index.html
+     copy:
+      content:  "welcome to aatmani"
+      dest: /var/www/html/index.html
+     notify: restart apache2
+  handlers:
+   - name: restart apache2
+     service:
+      name: apache2
+      state: restarted

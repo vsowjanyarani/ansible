@@ -1,0 +1,14 @@
+---
+- name: install s/w application
+  hosts: webserver
+  tasks:
+   - name: install tree
+     apt:
+      name: "{{item}}"
+      state: present
+      update_cache: no
+     with_items:
+      - tree
+      - openjdk-8-jdk
+      - maven
+      - wget

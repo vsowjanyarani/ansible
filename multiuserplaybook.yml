@@ -1,0 +1,21 @@
+---
+- name: create multiple users and create files /dir of users
+  hosts: webserver
+  become: yes
+  tasks:
+   - name: create users
+     user:
+      name: "{{item.a}}"
+      password: "{{item.b}}"
+      home: "{{item.c}}"
+     with_items:
+      - {a: raju,b: raju1,c: /home/raju}
+      - {a: ramesh,b: ramesh1,c: /home/ramesh}
+   - name: create files/dirs in users home dir
+     file:
+       name: "{{items.a}}"
+       state: "{{items.b}}"
+     with_items:
+      - {a: /home/raju/file1,b: touch}
+      - {a: /home/ramesh/dir1,b:directory} 
+          

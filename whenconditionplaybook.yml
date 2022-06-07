@@ -1,0 +1,12 @@
+---
+- name: implementing when conditions
+  hosts: webserver
+  vars:
+   - a: 20
+  tasks:
+   - name: install git
+     apt:
+       name: git
+       state: present
+       update_cache: yes
+     when: a == 10

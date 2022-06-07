@@ -1,0 +1,19 @@
+---
+- name: installing tomcat
+  hosts: all
+  tasks: 
+   - name: install tomcat
+     apt: update_cache=yes
+     ignore_errors: yes
+   - name: Installing JDK.
+     apt: name=default-jdk state=latest
+   - name: Adding Group and user for Tomcat.
+     shell: groupadd tomcat && useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+   - name: Downloading Apache Tomcat tar.
+     shell: wgethttp://us.mirrors.quenda.co/apache/tomcat/tomcat-8/v8.5.56/bin/apache-tomcat-8.5.56.tar.gz      
+     args:
+      chdir: /tmp
+   - name: Creating Apache tomcat home directory.
+     command: mkdir /opt/tomcat
+   - name: Extracting Apache Tomcat.
+     shell: tar -xzvf /tmp/apache-tomcat-8*tar.gz -C /opt/tomcat

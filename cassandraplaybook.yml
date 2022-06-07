@@ -1,0 +1,22 @@
+- hosts: all
+  become: yes
+  tasks:
+    #CASSANDRA
+  - name: update
+    apt: update_cache=yes
+    ignore_errors: yes
+  - name: install JDK
+    shell: sudo apt install openjdk-8-jdk -y
+  - name: Install the apt-transport-https Package
+    shell: sudo apt install apt-transport-https
+  - name: Add Apache Cassandra Repository and Import GPG Key
+    shell: sudo sh -c 'echo "deb http://www.apache.org/dist/cassandra/debian 40x main" > /etc/apt/sources.list.d/cassandra.list'
+  - name: Installing wget
+    apt: name=wget state=latest
+  - name: wget command to pull the public key from the URL
+    shell: wget -q -O - https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -
+  - name: Run update
+    shell: sudo apt update
+  - name: Install Apache Cassandra
+    shell: sudo apt install cassandra -y
+

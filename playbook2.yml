@@ -1,0 +1,13 @@
+---
+- name: creating curl ,wget ,maven and java playbook
+  hosts: all
+  tasks:
+   - name: update apt cache and make sure curl,wget are installed
+     apt: 
+      name: curl
+      name: wget
+   - name: install  Apache Maven
+     apt: 
+      name: maven
+      state: latest
+...
